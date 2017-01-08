@@ -43,7 +43,8 @@
               chinese-default-input-method 'pinyin
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
-     gtags
+     (gtags :variables
+            gtags-enable-by-default t)
      sql
      selectric
      org
@@ -57,6 +58,7 @@
      shell-scripts
      yaml
      samray
+     pdf-tools
      (python :variables
              python-enable-yapf-format-on-save t
              python-sort-imports-on-save t)

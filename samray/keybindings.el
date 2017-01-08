@@ -1,5 +1,6 @@
 ;;; spacemacs/set-leader-keys starts here
-(spacemacs/set-leader-keys "b o" 'occur-dwim)
+(spacemacs/set-leader-keys "o o" 'occur-dwim)
+(spacemacs/set-leader-keys "o r" 'query-replace-dwim)
 ;; set key-binding for switch-to-buffer
 (spacemacs/set-leader-keys "b l" 'switch-to-buffer)
 (spacemacs/declare-prefix "o" "Personal Usage")

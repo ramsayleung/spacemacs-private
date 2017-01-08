@@ -27,6 +27,8 @@
 (setq evil-insert-state-map (make-sparse-keymap))
 (define-key evil-insert-state-map (kbd "<escape>") 'evil-normal-state)
 
+;;; use etags for company
+(eval-after-load 'company-etags '(progn (add-to-list 'company-etags-modes 'web-mode)))
 (setq dired-recursive-copies 'alway)
 (setq dired-recursive-deletes 'alway)
 (set-language-environment "UTF-8")
@@ -68,9 +70,10 @@
         (message "Indented buffer")))))
 
 
-
 ;;; add-hook module
-(add-hook 'before-save-hook 'indent-region-or-buffer)
+;; (add-hook 'prog-mode (lambda ()
+;;                        (add-hook 'before-save-hook 'indent-region-or-buffer t t)))
+;; (add-hook 'python-mode-hook 'indent-region-or-buffer nil)
 ;; Automaticallly format before saving a file(css js html json file)
 (eval-after-load 'js2-mode
   '(add-hook 'js2-mode-hook
@@ -133,8 +136,20 @@
               (regexp-quote sym))))
         regexp-history)
   (call-interactively 'occur))
-
-
+(defun query-replace-dwim (replace-string)
+  (interactive
+   (list (read-string (format "Do query-replace %s with :" (thing-at-point-or-at-region)))))
+  (save-excursion
+    (let ((replaced-string (thing-at-point-or-at-region)))
+      (goto-char (point-min))
+      (query-replace replaced-string replace-string))))
+(defun thing-at-point-or-at-region ()
+  "Return string or word at the cursor or in the marked region "
+  (if (region-active-p)
+      (buffer-substring-no-properties
+       (region-beginning)
+       (region-end))
+    (thing-at-point 'symbol)))
 ;;; highlight parent 
 (defadvice show-paren-function (around fix-show-paren-function activate)
   (cond ((looking-at-p "\\s(") ad-do-it)
@@ -142,6 +157,16 @@
              (ignore-errors (backward-up-list))
              ad-do-it)))
   )
+;;; linum-mode will slow emacs when the file emacs opens has thousands of lines
+;;; so just turn off linum-mode when emacs has more than 5000 lines or
+;;; buffer-size　is larger than 80*5000 byte
+(defun buffer-too-big-p ()
+  (or (> (buffer-size) (* 5000 80))
+      (> (line-number-at-pos (point-max)) 5000)))
+(add-hook 'prog-mode-hook
+          (lambda ()
+            ;; turn off `linum-mode' when there are more than 5000 lines
+            (if (buffer-too-big-p) (linum-mode -1))))
 
 ;; show single quote "'" in emacs and lisp-interaction-mode instead of single
 ;;; quote pair "''"
