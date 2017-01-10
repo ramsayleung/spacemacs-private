@@ -33,6 +33,11 @@
 (setq dired-recursive-deletes 'alway)
 (set-language-environment "UTF-8")
 (put 'dired-find-alternate-file 'disabled nil)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq dired-recursive-copies 'alway)
+(setq dired-recursive-deletes 'alway)
+
 (define-abbrev-table 'global-abbrev-table '(
                                             ;; signature
                                             ("8sa" "samray")
