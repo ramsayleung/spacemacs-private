@@ -39,10 +39,10 @@
 (define-key evil-motion-state-map (kbd "RET") 'evil-multiedit-toggle-or-restrict-region)
 
 ;; For moving between edit regions
-(define-key evil-multiedit-state-map (kbd "n") 'evil-multiedit-next)
-(define-key evil-multiedit-state-map (kbd "N") 'evil-multiedit-prev)
-(define-key evil-multiedit-insert-state-map (kbd "n") 'evil-multiedit-next)
-(define-key evil-multiedit-insert-state-map (kbd "N") 'evil-multiedit-prev)
+(define-key evil-multiedit-state-map (kbd "C-n") 'evil-multiedit-next)
+(define-key evil-multiedit-state-map (kbd "C-p") 'evil-multiedit-prev)
+(define-key evil-multiedit-insert-state-map (kbd "C-n") 'evil-multiedit-next)
+(define-key evil-multiedit-insert-state-map (kbd "C-p") 'evil-multiedit-prev)
 
 ;; Ex command that allows you to invoke evil-multiedit with a regular expression, e.g.
 (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)

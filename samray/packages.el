@@ -41,6 +41,9 @@
     (vue-mode :location (recipe
                          :fetcher github
                          :repo "codefalling/vue-mode"))
+    ;; (hl-tags-mode :location (recipe
+    ;;                          :fetcher github
+    ;;                          :repo "deactivated/hl-tags-mode"))
     ;; (livedown :location (recipe
     ;;                      :fetcher github
     ;;                      :repo "shime/emacs-livedown"))
@@ -97,7 +100,10 @@ Each entry is either:
   (use-package slime
     :init
     ()))
-
+(defun samray/init-hl-tags-mode ()
+    (use-package hl-tags-mode
+      :init
+      ()))
 ;; (defun samray/post-init-ac-html-csswatcher ()
 ;;   (add-hook 'web-mode 'ac-html-csswatcher+)
 ;;   (add-hook 'html-mode 'ac-html-csswatcher+)

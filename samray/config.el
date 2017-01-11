@@ -18,6 +18,9 @@
 ;;; misc module
 (abbrev-mode t)
 (setq dired-dwim-target t)
+
+(setq web-mode-current-element-highlight t)
+
 ;;; set an html convert for markdown 
 (custom-set-variables
  '(markdown-command "/usr/bin/pandoc"))
@@ -79,16 +82,17 @@
 ;; (add-hook 'prog-mode (lambda ()
 ;;                        (add-hook 'before-save-hook 'indent-region-or-buffer t t)))
 ;; (add-hook 'python-mode-hook 'indent-region-or-buffer nil)
+(add-hook 'prog-mode highlight-indentation-mode)
 ;; Automaticallly format before saving a file(css js html json file)
-(eval-after-load 'js2-mode
-  '(add-hook 'js2-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+;; (eval-after-load 'js2-mode
+;;   '(add-hook 'js2-mode-hook
+;;              (lambda ()
+;;                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
 ;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
-(eval-after-load 'js
-  '(add-hook 'js-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+;; (eval-after-load 'js
+;;   '(add-hook 'js-mode-hook
+;;              (lambda ()
+;;                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
 (eval-after-load 'json-mode
   '(add-hook 'json-mode-hook
              (lambda ()
