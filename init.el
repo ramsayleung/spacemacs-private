@@ -29,7 +29,8 @@
                       auto-completion-complete-with-key-sequence nil
                       auto-completion-complete-with-key-sequence-delay 0.05
                       auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t)
+                      auto-completion-enable-sort-by-usage t
+                      spacemacs-default-company-backends '(company-files company-capf )) ; to reach better auto-completion
      better-defaults
      cfengine
      imenu-list
@@ -53,7 +54,9 @@
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c-mode
             c-c++-enable-clang-support t)
-     javascript
+     (javascript :variables
+                 javascript-disable-tern-port-files nil
+                 )
      scheme
      shell-scripts
      yaml
@@ -63,8 +66,8 @@
              python-enable-yapf-format-on-save t
              python-sort-imports-on-save t)
      (shell :variables
-            shell-default-term-shell (getenv "SHELL")
-            ;; shell-default-shell 'eshell
+            ;; shell-default-term-shell (getenv "SHELL")
+            shell-default-shell 'eshell
             shell-enable-smart-eshell t
             shell-default-height 30
             shell-default-position 'bottom)
@@ -155,7 +158,7 @@
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Source Code Pro "
                                :size 13
                                :weight normal
                                :width normal
@@ -292,6 +295,12 @@
   `dotspacemacs/user-config' first."
   ;; To dismiss the startup warning 
   (setq exec-path-from-shell-arguments '("-l"))
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
@@ -309,7 +318,12 @@
    ;;To change how js2-mode indent code,set variable js2-basic-offset,as such:
    js2-basic-offset 2
    ;;To change how js-mode idents JSON files,set the variable js-indent-level,as such:
-   js-indent-level 2)
+   js-indent-level 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2
+   )
   ;; enable smartparens globally
   (smartparens-global-mode)
   ;; enable global-company-mode to auto-complete

@@ -53,7 +53,15 @@
 (with-eval-after-load 'dired-mode
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 (global-set-key "\C-e" 'move-end-of-line)
+(with-eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook
+            (lambda ()
+              (define-key js2-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-sexp)
+              (define-key js2-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+              (define-key js2-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
+              (define-key js2-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
+  )
 
 ;;; misc ends here
 

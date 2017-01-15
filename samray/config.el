@@ -14,11 +14,9 @@
 ;;; require module
 (require 'dired-x)
 
-
 ;;; misc module
 (abbrev-mode t)
 (setq dired-dwim-target t)
-
 (setq web-mode-current-element-highlight t)
 
 ;;; set an html convert for markdown 
@@ -32,14 +30,16 @@
 
 ;;; use etags for company
 (eval-after-load 'company-etags '(progn (add-to-list 'company-etags-modes 'web-mode)))
-(setq dired-recursive-copies 'alway)
-(setq dired-recursive-deletes 'alway)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+;;; let helm just to create buffer when does not exist file,without the prompt
+(setq helm-ff-newfile-prompt-p nil)
 (set-language-environment "UTF-8")
 (put 'dired-find-alternate-file 'disabled nil)
 
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq dired-recursive-copies 'alway)
-(setq dired-recursive-deletes 'alway)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 
 (define-abbrev-table 'global-abbrev-table '(
                                             ;; signature
@@ -79,36 +79,44 @@
 
 
 ;;; add-hook module
+;;; auto-indent before save buffer
 ;; (add-hook 'prog-mode (lambda ()
 ;;                        (add-hook 'before-save-hook 'indent-region-or-buffer t t)))
+(add-hook 'prog-mode-hook (lambda ()
+                            (unless (derived-mode-p 'python-mode)
+                              (add-hook 'before-save-hook 'indent-region-or-buffer t t))))
+(eval-after-load 'vue-mode
+  '(add-hook 'vue-mode-hook
+             (lambda ()
+               (add-hook 'before-save-hook 'indent-region-or-buffer t t))))
 ;; (add-hook 'python-mode-hook 'indent-region-or-buffer nil)
-(add-hook 'prog-mode highlight-indentation-mode)
+;;(add-hook 'prog-mode highlight-indentation-mode)
 ;; Automaticallly format before saving a file(css js html json file)
-;; (eval-after-load 'js2-mode
-;;   '(add-hook 'js2-mode-hook
-;;              (lambda ()
-;;                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
-;; (eval-after-load 'js
-;;   '(add-hook 'js-mode-hook
-;;              (lambda ()
-;;                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
-(eval-after-load 'json-mode
-  '(add-hook 'json-mode-hook
+(eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook
              (lambda ()
                (add-hook 'before-save-hook 'web-beautify-js-buffer t t))))
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(add-hook 'js-mode-hook
+             (lambda () (unless (derived-mode-p 'vue-mode)
+                          (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))))
+(eval-after-load 'json-mode
+  '(add-hook 'json-mode-hook
+             (lambda () (unless (derived-mode-p 'vue-mode)
+                          (add-hook 'before-save-hook 'web-beautify-js-buffer t t)))))
 (eval-after-load 'sgml-mode
   '(add-hook 'html-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
+             (lambda () (unless (derived-mode-p 'vue-mode)
+                          (add-hook 'before-save-hook 'web-beautify-html-buffer t t)))))
 (eval-after-load 'web-mode
   '(add-hook 'web-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-html-buffer t t))))
+             (lambda () (unless (derived-mode-p 'vue-mode)
+                          (add-hook 'before-save-hook 'web-beautify-html-buffer t t)))))
 (eval-after-load 'css-mode
   '(add-hook 'css-mode-hook
-             (lambda ()
-               (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
+             (lambda () (unless (derived-mode-p 'vue-mode)
+                          (add-hook 'before-save-hook 'web-beautify-css-buffer t t)))))
 ;; smartparens-mode will be disable after save for unknown reason in html-mode
 ;;so i have to manual enable it after save
 (eval-after-load 'web-mode
@@ -116,6 +124,13 @@
              (lambda ()
                (add-hook 'after-save-hook 'smartparens-mode))))
 
+;; (eval-after-load 'tern
+;;   '(progn
+;;      (require 'tern-auto-complete)
+;;      (tern-ac-setup)))
+
+;; (eval-after-load 'vue-mode '(add-hook 'vue-mode-hook (lambda ()
+;;                                                        (add-hook 'after-save-hook 'vue-mode))))
 
 
 ;;(define-advice show-paren-function (:around (fn) fix-show-paren-function)
