@@ -43,7 +43,14 @@
 (define-key evil-multiedit-state-map (kbd "C-p") 'evil-multiedit-prev)
 (define-key evil-multiedit-insert-state-map (kbd "C-n") 'evil-multiedit-next)
 (define-key evil-multiedit-insert-state-map (kbd "C-p") 'evil-multiedit-prev)
-
+(define-key evil-normal-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-insert-state-map "\C-e" 'end-of-line)
+(define-key evil-visual-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-motion-state-map "\C-e" 'evil-end-of-line)
+(define-key evil-normal-state-map "\C-a" 'evil-beginning-of-line)
+(define-key evil-insert-state-map "\C-a" 'beginning-of-line)
+(define-key evil-visual-state-map "\C-a" 'evil-beginning-of-line)
+(define-key evil-motion-state-map "\C-a" 'evil-beginning-of-line)
 ;; Ex command that allows you to invoke evil-multiedit with a regular expression, e.g.
 (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
 ;;; edit-multiedit ends here
@@ -53,7 +60,15 @@
 (with-eval-after-load 'dired-mode
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 (global-set-key "\C-e" 'move-end-of-line)
+(with-eval-after-load 'js2-mode
+  '(add-hook 'js2-mode-hook
+             (lambda ()
+               (define-key js2-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-sexp)
+               (define-key js2-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+               (define-key js2-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
+               (define-key js2-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
 
+  )
 
 ;;; misc ends here
 

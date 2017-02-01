@@ -1,5 +1,5 @@
 ;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
+;;This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
 (defun dotspacemacs/layers ()
@@ -24,25 +24,26 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;;----------------------------------------------------------------
      (auto-completion :variables
-                      auto-completion-return-key-behavior 'complete
+                      auto-completion-return-key-behavior 'complete 
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-complete-with-key-sequence nil
                       auto-completion-complete-with-key-sequence-delay 0.05
                       auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t)
+                      auto-completion-enable-sort-by-usage t
+                      spacemacs-default-company-backends '(company-files company-capf )) ; to reach better auto-completion
      better-defaults
      cfengine
      imenu-list
-     semantic
+     ;; semantic
      emacs-lisp
      git
      nginx
      (markdown :variables
                markdown-live-preview-engine 'vmd)
-     (chinese :variables
-              chinese-default-input-method 'pinyin
-              chinese-enable-fcitx t
-              chinese-enable-youdao-dict t)
+     ;; (chinese :variables
+     ;;          chinese-default-input-method 'pinyin
+     ;;          chinese-enable-fcitx t
+     ;;          chinese-enable-youdao-dict t)
      (gtags :variables
             gtags-enable-by-default t)
      sql
@@ -53,7 +54,9 @@
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c-mode
             c-c++-enable-clang-support t)
-     javascript
+     (javascript :variables
+                 javascript-disable-tern-port-files nil
+                 )
      scheme
      shell-scripts
      yaml
@@ -63,8 +66,8 @@
              python-enable-yapf-format-on-save t
              python-sort-imports-on-save t)
      (shell :variables
-            shell-default-term-shell (getenv "SHELL")
-            ;; shell-default-shell 'eshell
+            ;; shell-default-term-shell (getenv "SHELL")
+            shell-default-shell 'eshell
             shell-enable-smart-eshell t
             shell-default-height 30
             shell-default-position 'bottom)
@@ -155,7 +158,7 @@
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Source Code Pro "
                                :size 13
                                :weight normal
                                :width normal
@@ -292,6 +295,12 @@
   `dotspacemacs/user-config' first."
   ;; To dismiss the startup warning 
   (setq exec-path-from-shell-arguments '("-l"))
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+
+
   (setq configuration-layer--elpa-archives
         '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
           ("org-cn"   . "http://elpa.emacs-china.org/org/")
@@ -309,7 +318,12 @@
    ;;To change how js2-mode indent code,set variable js2-basic-offset,as such:
    js2-basic-offset 2
    ;;To change how js-mode idents JSON files,set the variable js-indent-level,as such:
-   js-indent-level 2)
+   js-indent-level 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2
+   )
   ;; enable smartparens globally
   (smartparens-global-mode)
   ;; enable global-company-mode to auto-complete
@@ -376,6 +390,7 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(markdown-command "/usr/bin/pandoc")
  '(package-selected-packages
    (quote
-    (evil-multiedit zenburn-theme yapfify yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify wakatime-mode vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit stickyfunc-enhance srefactor sql-indent spacemacs-theme spaceline solarized-theme smeargle slime slim-mode shell-pop selectric-mode scss-mode sass-mode restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paredit paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file nginx-mode neotree mwim multi-term move-text monokai-theme molokai-theme markdown-toc magit-gitflow magit-gh-pulls lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc insert-shebang info+ indent-guide imenu-list ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gruvbox-theme google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags geiser flycheck-pos-tip flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme disaster define-word cython-mode company-web company-tern company-statistics company-shell company-quickhelp company-c-headers company-anaconda column-enforce-mode coffee-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (youdao-dictionary names chinese-word-at-point vmd-mode virtualenvwrapper tablist pangu-spacing log4e gntp nodejs-repl mmm-mode json-snatcher json-reformat parent-mode gitignore-mode marshal logito flyspell-correct-helm flyspell-correct pkg-info epl flx find-by-pinyin-dired fcitx evil goto-chg powerline pdf-tools spinner org alert markdown-mode macrostep multiple-cursors hydra projectile flycheck anzu dired+ chinese-pyim bind-key packed auto-complete yasnippet anaconda-mode tern company smartparens bind-map iedit highlight undo-tree gh pcache ht request helm helm-core skewer-mode js2-mode simple-httpd magit magit-popup git-commit with-editor async f haml-mode s dash evil-multiedit zenburn-theme yapfify yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify wakatime-mode vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit stickyfunc-enhance srefactor sql-indent spacemacs-theme spaceline solarized-theme smeargle slime slim-mode shell-pop selectric-mode scss-mode sass-mode restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paredit paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file nginx-mode neotree mwim multi-term move-text monokai-theme molokai-theme markdown-toc magit-gitflow magit-gh-pulls lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc insert-shebang info+ indent-guide imenu-list ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gruvbox-theme google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags geiser flycheck-pos-tip flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme disaster define-word cython-mode company-web company-tern company-statistics company-shell company-quickhelp company-c-headers company-anaconda column-enforce-mode coffee-mode cmake-mode clean-aindent-mode clang-format auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))

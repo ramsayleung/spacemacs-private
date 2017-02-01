@@ -34,13 +34,15 @@
     dired+
     paredit
     slime
+    ac-js2
+    virtualenvwrapper
+    nodejs-repl
+    youdao-dictionary
     ;; (ac-html-csswatcher :location (
     ;;                                recipe
     ;;                                :fetcher github
     ;;                                :repo "osv/ac-html-csswater"))
-    (vue-mode :location (recipe
-                         :fetcher github
-                         :repo "codefalling/vue-mode"))
+    vue-mode
     ;; (hl-tags-mode :location (recipe
     ;;                          :fetcher github
     ;;                          :repo "deactivated/hl-tags-mode"))
@@ -100,10 +102,26 @@ Each entry is either:
   (use-package slime
     :init
     ()))
-(defun samray/init-hl-tags-mode ()
-    (use-package hl-tags-mode
-      :init
-      ()))
+(defun samray/init-virtualenvwrapper ()
+  (use-package virtualenvwrapper
+    :init
+    :config
+    ()))
+(defun samray/init-ac-js2 ()
+  (use-package ac-js2
+    :init
+    :config
+    (add-hook 'js2-mode-hook 'ac-js2-mode)))
+(defun samray/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :init
+    :config
+    ()))
+(defun samray/init-youdao-dictionary ()
+  (use-package youdao-dictionary
+    :init
+    :config(
+            (setq url-automatic-caching t))))  ;enable cache
 ;; (defun samray/post-init-ac-html-csswatcher ()
 ;;   (add-hook 'web-mode 'ac-html-csswatcher+)
 ;;   (add-hook 'html-mode 'ac-html-csswatcher+)
