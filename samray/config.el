@@ -129,6 +129,9 @@
 ;;      (require 'tern-auto-complete)
 ;;      (tern-ac-setup)))
 
+;; (eval-after-load 'vue-mode '(add-hook 'vue-mode-hook (lambda ()
+;;                                                        (add-hook 'after-save-hook 'vue-mode))))
+
 
 (define-advice show-paren-function (:around (fn) fix-show-paren-function)
   "Highlight enclosing parens."
