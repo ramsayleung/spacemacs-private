@@ -60,8 +60,6 @@
                                          try-complete-lisp-symbol-partially
                                          try-complete-lisp-symbol
                                          ))
-
-
 ;;; customize-function
 ;; auto indent file before save file
 (defun indent-buffer()
@@ -81,6 +79,8 @@
 
 
 ;;; add-hook module
+;;; split window side by side on the startup
+(add-hook 'emacs-startup-hook '2-windows-vertical-to-horizontal)
 ;;; auto-indent before save buffer
 ;; (add-hook 'prog-mode (lambda ()
 ;;                        (add-hook 'before-save-hook 'indent-region-or-buffer t t)))

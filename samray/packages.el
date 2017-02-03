@@ -38,6 +38,7 @@
     virtualenvwrapper
     nodejs-repl
     youdao-dictionary
+    circe
     ;; (ac-html-csswatcher :location (
     ;;                                recipe
     ;;                                :fetcher github
@@ -120,8 +121,18 @@ Each entry is either:
 (defun samray/init-youdao-dictionary ()
   (use-package youdao-dictionary
     :init
-    :config(
-            (setq url-automatic-caching t))))  ;enable cache
+    :config(setq url-automatic-caching t)))  ;enable cache
+(defun samray/init-circe ()
+  (use-package circe
+    :init
+    :config(setq circe-network-options
+                 '(("Freenode"
+                    :tls t
+                    :nick "SamrayL"
+                    :sasl-username "SamrayL"
+                    :sasl-password "123456"
+                    :channels ("#emacs")
+                    )))))
 ;; (defun samray/post-init-ac-html-csswatcher ()
 ;;   (add-hook 'web-mode 'ac-html-csswatcher+)
 ;;   (add-hook 'html-mode 'ac-html-csswatcher+)
