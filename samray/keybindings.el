@@ -55,7 +55,6 @@
 (evil-ex-define-cmd "ie[dit]" 'evil-multiedit-ex-match)
 ;;; edit-multiedit ends here
 
-
 ;;; misc starts here
 (with-eval-after-load 'dired-mode
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))

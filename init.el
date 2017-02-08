@@ -314,6 +314,8 @@
   ;; customized file
   (setq custom-file (expand-file-name "~/.spacemacs.d/custom.el" user-emacs-directory))
   (load-file custom-file)
+;;; split window side by side on the startup
+  (add-hook 'emacs-startup-hook '2-windows-vertical-to-horizontal)
   (setq-default
    ;;To change how js2-mode indent code,set variable js2-basic-offset,as such:
    js2-basic-offset 2

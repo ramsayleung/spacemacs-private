@@ -18,7 +18,8 @@
 (abbrev-mode t)
 (setq dired-dwim-target t)
 (setq web-mode-current-element-highlight t)
-
+(setq show-paren-style 'expression)            ; Highlight text between parens
+(setq read-file-name-completion-ignore-case 't); Ignore case when completing file names
 ;;; highlight parent when cursor on it instead of after it
 (setq show-paren-when-point-inside-paren t)
 ;;; set an html convert for markdown 
@@ -79,8 +80,6 @@
 
 
 ;;; add-hook module
-;;; split window side by side on the startup
-(add-hook 'emacs-startup-hook '2-windows-vertical-to-horizontal)
 ;;; auto-indent before save buffer
 ;; (add-hook 'prog-mode (lambda ()
 ;;                        (add-hook 'before-save-hook 'indent-region-or-buffer t t)))
